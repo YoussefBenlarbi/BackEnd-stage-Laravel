@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('cin')->nullable();
             // $table->string('identity_card')->nullable(); //image
             $table->text('address')->nullable();
+            $table->text('sexe')->nullable();
             $table->timestamps();
         });
     }

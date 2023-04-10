@@ -19,12 +19,64 @@ class CarSeeder extends Seeder
     {
         Car::create(
             [
-                'name' => Str::random(6),
-                'plat' => Str::random(10),
-                'description' => Str::random(20),
-                'status' => 0,
-                'price' => rand(600, 2000),
+                'name' => 'Audi S3 Car',
+                'mileage' => 10000,
+                'thumbnailUrl' => "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
+                'dailyPrice' => 70,
+                'monthlyPrice' => 1600,
+                'gearType' => 'Auto',
+                'gasType' => 'Petrol',
             ]
         );
+        Car::create([
+            'name' => 'HONDA City 5 Seater Car',
+            'mileage' => 20000,
+            'thumbnailUrl' => "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
+            'dailyPrice' => 50,
+            'monthlyPrice' => 1500,
+            'gearType' => 'Auto',
+            'gasType' => 'Petrol',
+        ]);
+        Car::create(
+            [
+                'name' => 'Mercedes 205',
+                'mileage' => 10000,
+                'thumbnailUrl' => "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
+                'dailyPrice' => 45,
+                'monthlyPrice' => 1200,
+                'gearType' => 'Auto',
+                'gasType' => 'Petrol',
+            ]
+        );
+        Car::create([
+            'name' => 'Ferrari spider',
+            'mileage' => 5000,
+            'thumbnailUrl' => "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
+            'dailyPrice' => 80,
+            'monthlyPrice' => 3500,
+            'gearType' => 'Manual',
+            'gasType' => 'Petrol',
+        ]);
+        Car::create(
+            [
+                'name' => 'Honda Civic 2007',
+                'mileage' => 25000,
+                'thumbnailUrl' => "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
+                'dailyPrice' => 55,
+                'monthlyPrice' => 1750,
+                'gearType' => 'Auto',
+                'gasType' => 'Petrol',
+            ]
+        );
+        Car::create([
+            'name' => 'Clio 4 ',
+            'mileage' => 19000,
+            'thumbnailUrl' => "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
+            'dailyPrice' => 380,
+            'monthlyPrice' => 1700,
+            'gearType' => 'Manual',
+            'gasType' => 'Petrol',
+        ]);
+
     }
 }

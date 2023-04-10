@@ -36,7 +36,8 @@ class AuthController extends Controller
         UserDetail::create([
             'cin' => $request->cin,
             'address' => $request->address,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'sexe' => $user->sexe,
         ]);
         $token = Auth::login($user);
         return response()->json([

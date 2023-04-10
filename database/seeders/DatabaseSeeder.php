@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\CarSeeder;
+use Database\Seeders\Reservation;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,6 +23,12 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             CarSeeder::class
+        ]);
+        $this->call([
+            UserSeeder::class
+        ]);
+        $this->call([
+            ReservationSeeder::class
         ]);
     }
 }

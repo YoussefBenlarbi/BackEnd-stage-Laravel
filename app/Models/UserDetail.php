@@ -9,16 +9,11 @@ class UserDetail extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    // protected $fillable = [
-    //     'user_id',
-    //     'nik',
-    //     'ktp',
-    //     'adress'
-    // ];
     protected $fillable = [
         'user_id',
         'cin'
         , 'address'
+        , 'sexe'
     ];
 
     public function user()
