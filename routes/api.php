@@ -28,6 +28,9 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::get('refresh', [AuthController::class, 'refresh']);
 Route::post('me', [AuthController::class, 'me'])->middleware('auth');
 Route::get('carsInfo', [CarController::class, 'carsInfo']);
+Route::patch('activate/{id}', [UserController::class, 'activate']);
+Route::patch('desactivate/{id}', [UserController::class, 'desactivate']);
+Route::post('reservations', [ReservationController::class, 'store']);
 
 // Route::post('me', function () {
 //     return Auth::user();

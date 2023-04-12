@@ -97,6 +97,40 @@ class UserController extends Controller
             "updated user" => $user
         ]);
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function desactivate(Request $request, $id)
+    {
+        $user = User::FindOrFail($id);
+        $user->update([
+            'is_active' => 0,
+        ]);
+        return response()->json([
+            "status" => "user desactivated successfully!",
+            "updated user" => $user
+        ]);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function activate(Request $request, $id)
+    {
+        $user = User::FindOrFail($id);
+        $user->update([
+            'is_active' => 1,
+        ]);
+        return response()->json([
+            "status" => "user Activated successfully!",
+            "updated user" => $user
+        ]);
+    }
 
     /**
      * Remove the specified resource from storage.

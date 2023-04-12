@@ -49,7 +49,6 @@ class ReservationController extends Controller
         $request->validate([
             "date_start" => 'required|date',
             "date_end" => 'required|date',
-            "date_reservation" => 'required|date',
             "user_id" => 'required',
             "car_id" => 'required',
         ]);
@@ -115,7 +114,7 @@ class ReservationController extends Controller
         // 'note'
         $reservation = Reservation::FindOrFail($id);
         $status = isset($request->status) ? $request->status : $reservation->status;
-        $reservation->update(['date_start' => $request->date_start, 'date_end' => $request->date_end, 'date_reservation' => $request->date_reservation, 'status' => $status, 'total' => $request->total, 'user_id' => $request->user_id, 'car_id' => $request->car_id, 'note' => $request->note]);
+        $reservation->update(['date_start' => $request->date_start, 'date_end' => $request->date_end, 'date_reservation' => $request->date_reservation, 'status' => $status, 'user_id' => $request->user_id, 'car_id' => $request->car_id, 'note' => $request->note]);
         return response()->json([
             "status" => "Reservation updated successfully!",
             "Updated_Reservation" => $reservation
@@ -137,5 +136,5 @@ class ReservationController extends Controller
             "message" => "reservation having the id : $reservation->id was deleted successfully!",
         ]);
     }
-  
+
 }
