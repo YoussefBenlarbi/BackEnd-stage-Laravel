@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\UserDetail;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -51,7 +52,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::FindOrFail($id);
+        // $user = User::FindOrFail($id);
+        // $user = User::with('userDetails')->find($id);
+        $user = User::with('detail')->find($id);
         return response()->json($user);
     }
 
@@ -86,15 +89,20 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::FindOrFail($id);
+        $userDetails = UserDetail::FindOrFail($id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'is_active' => $request->is_active,
-            'password' => Hash::make($request->password),
+        ]);
+        $userDetails->update([
+            'cin' => $request->cin,
+            'address' => $request->address,
+            'sexe' => $request->sexe
         ]);
         return response()->json([
             "status" => "user updated successfully!",
-            "updated user" => $user
+            "updated user" => $user,
+            "updated details" => $userDetails
         ]);
     }
     /**

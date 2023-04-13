@@ -26,6 +26,8 @@ class CarSeeder extends Seeder
                 'monthlyPrice' => 1600,
                 'gearType' => 'Auto',
                 'gasType' => 'Petrol',
+                'description' => 'Cool description',
+
             ]
         );
         Car::create([
@@ -36,6 +38,7 @@ class CarSeeder extends Seeder
             'monthlyPrice' => 1500,
             'gearType' => 'Auto',
             'gasType' => 'Petrol',
+            'description' => 'Cool description',
         ]);
         Car::create(
             [
@@ -46,6 +49,7 @@ class CarSeeder extends Seeder
                 'monthlyPrice' => 1200,
                 'gearType' => 'Auto',
                 'gasType' => 'Petrol',
+                'description' => 'Cool description',
             ]
         );
         Car::create([
@@ -56,6 +60,7 @@ class CarSeeder extends Seeder
             'monthlyPrice' => 3500,
             'gearType' => 'Manual',
             'gasType' => 'Petrol',
+            'description' => 'Cool description',
         ]);
         Car::create(
             [
@@ -66,6 +71,8 @@ class CarSeeder extends Seeder
                 'monthlyPrice' => 1750,
                 'gearType' => 'Auto',
                 'gasType' => 'Petrol',
+                'description' => 'Cool description',
+
             ]
         );
         Car::create([
@@ -76,7 +83,8 @@ class CarSeeder extends Seeder
             'monthlyPrice' => 1700,
             'gearType' => 'Manual',
             'gasType' => 'Petrol',
-        ]);
+            'description' => 'Cool description',
 
+        ]);
     }
 }

@@ -109,7 +109,6 @@ class CarController extends Controller
     {
         $car = Car::FindOrFail($id);
         $status = isset($request->status) ? $request->status : $car->status;
-        $thumbnailUrl = isset($request->thumbnailUrl) ? $request->thumbnailUrl : $car->thumbnailUrl;
         $car->update([
             'name' => $request->name,
             'mileage' => $request->mileage,
@@ -119,7 +118,7 @@ class CarController extends Controller
             'status' => $status,
             'dailyPrice' => $request->dailyPrice,
             'monthlyPrice' => $request->monthlyPrice,
-            "thumbnailUrl" => $thumbnailUrl,
+            "thumbnailUrl" => $request->thumbnailUrl,
         ]);
         return response()->json([
             "status" => "Car updated successfully!",
