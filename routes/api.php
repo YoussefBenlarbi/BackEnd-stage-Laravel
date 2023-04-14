@@ -31,7 +31,7 @@ Route::get('carsInfo', [CarController::class, 'carsInfo']);
 Route::patch('activate/{id}', [UserController::class, 'activate']);
 Route::patch('desactivate/{id}', [UserController::class, 'desactivate']);
 Route::post('reservations', [ReservationController::class, 'store']);
-
+Route::get('users/{user}', [UserController::class, 'show']);
 // Route::post('me', function () {
 //     return Auth::user();
 // })->middleware('auth');
