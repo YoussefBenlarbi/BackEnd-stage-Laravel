@@ -46,30 +46,39 @@ class ReservationController extends Controller
     //    'note' => $request->note
     public function store(Request $request)
     {
-        $request->validate([
-            "date_start" => 'required|date',
-            "date_end" => 'required|date',
-            "user_id" => 'required',
-            "car_id" => 'required',
-        ]);
-        $reservationData = [
-            'date_start' => $request->date_start,
-            'date_end' => $request->date_end,
-            'date_reservation' => $request->date_reservation,
-            'status' => 1,
-            'total' => $request->total,
-            'user_id' => $request->user_id,
-            'car_id' => $request->car_id,
-            'note' => $request->note,
-        ];
-        if ($request->has('status')) {
-            $reservationData['status'] = $request->status;
+        try {
+
+            $request->validate([
+                "date_start" => 'required|date',
+                "date_end" => 'required|date',
+                "user_id" => 'required',
+                "car_id" => 'required',
+            ]);
+            $reservationData = [
+                'date_start' => $request->date_start,
+                'date_end' => $request->date_end,
+                'date_reservation' => $request->date_reservation,
+                'status' => 1,
+                'total' => $request->total,
+                'user_id' => $request->user_id,
+                'car_id' => $request->car_id,
+                'note' => $request->note,
+            ];
+            if ($request->has('status')) {
+                $reservationData['status'] = $request->status;
+            }
+            $reservation = Reservation::create($reservationData);
+            return response()->json([
+                "status" => "reservation created successfully!",
+                "reservation" => $reservation
+            ]);
+        } catch (\Exception $e) {
+            // Handle the exception here
+            return response()->json([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
-        $reservation = Reservation::create($reservationData);
-        return response()->json([
-            "status" => "reservation created successfully!",
-            "reservation" => $reservation
-        ]);
     }
 
     /**
@@ -136,5 +145,4 @@ class ReservationController extends Controller
             "message" => "reservation having the id : $reservation->id was deleted successfully!",
         ]);
     }
-
 }
