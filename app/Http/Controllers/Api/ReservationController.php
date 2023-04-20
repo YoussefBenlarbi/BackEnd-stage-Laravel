@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -16,8 +18,24 @@ class ReservationController extends Controller
     public function index()
     {
         // $cars = Reservation::all();
+        $dataChart = Reservation::selectRaw("MONTHNAME(date_reservation) as name,
+        SUM(CASE WHEN total > 0 THEN total ELSE 0 END) as Income")
+            ->where('status', '=', 2)
+            ->groupBy(Reservation::raw('MONTH(date_reservation), MONTHNAME(date_reservation)'))
+            ->get()
+            ->toArray();
+        $maleCount = UserDetail::where('sexe', 'male')->count();
+        $femaleCount = UserDetail::where('sexe', 'female')->count();
         $reservations = Reservation::with('user', 'car')->get();
-        return response()->json($reservations);
+        $arraySexe = [
+            ['name' => 'female', 'value' => $femaleCount],
+            ['name' => 'male', 'value' => $maleCount]
+        ];
+        return response()->json([
+            "reservations" => $reservations,
+            "arraySexe" => $arraySexe,
+            'dataChart' => $dataChart
+        ]);
     }
 
     /**
