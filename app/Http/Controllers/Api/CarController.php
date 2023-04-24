@@ -6,6 +6,7 @@ use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class CarController extends Controller
 {
@@ -37,17 +38,48 @@ class CarController extends Controller
      * @return \Illuminate\Http\JsonResponse
 
      */
+    // public function store(Request $request)
+    // {
+    //     // 'name',
+    //     // 'pricePerDay',
+    //     // 'pricePerMonth',
+    //     // 'mileage',
+    //     // 'gearType',
+    //     // 'gasType',
+    //     // 'description',
+    //     // 'status',
+    //     // 'thumbnailUrl'
+    //     $request->validate([
+    //         "name" => 'required',
+    //         "mileage" => 'required',
+    //         "description" => 'required|min:8',
+    //         "gearType" => 'required',
+    //     ]);
+    //     $carData = [
+    //         'name' => $request->name,
+    //         'mileage' => $request->mileage,
+    //         'description' => $request->description,
+    //         'gearType' => $request->gearType,
+    //         'gasType' => $request->gasType,
+    //         'status' => 0,
+    //         'dailyPrice' => $request->dailyPrice,
+    //         'monthlyPrice' => $request->monthlyPrice,
+    //     ];
+    //     if ($request->has('status')) {
+    //         $carData['status'] = $request->status;
+    //     }
+    //     $car = Car::create($carData);
+
+    //     return response()->json([
+    //         "status" => "Car created successfully!",
+    //         "car" => $car
+    //     ]);
+    // }
     public function store(Request $request)
     {
-        // 'name',
-        // 'pricePerDay',
-        // 'pricePerMonth',
-        // 'mileage',
-        // 'gearType',
-        // 'gasType',
-        // 'description',
-        // 'status',
-        // 'thumbnailUrl'
+        // Log the request data
+        // Log::info('Request data:', $request->all());
+        // dd($request);
         $request->validate([
             "name" => 'required',
             "mileage" => 'required',
@@ -67,14 +99,32 @@ class CarController extends Controller
         if ($request->has('status')) {
             $carData['status'] = $request->status;
         }
-        $car = Car::create($carData);
+        if ($request->hasFile('thumbnailUrl')) {
+            // Log that a file with key 'thumbnailUrl' is present in the request
+            Log::info('File with key \'thumbnailUrl\' is present in the request');
+            $image = $request->file('thumbnailUrl');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+            $carData['thumbnailUrl'] = $imagePath;
+
+            // Log the image path
+            // Log::info('Image path:', $imagePath);
+
+            $car = Car::create($carData);
+            return response()->json([
+                "status" => "Car created successfully!",
+                "car" => $car
+            ]);
+        }
+
+        // Log that no file with key 'thumbnailUrl' is present in the request
+        // Log::warning('No file with key \'thumbnailUrl\' is present in the request');
 
         return response()->json([
-            "status" => "Car created successfully!",
-            "car" => $car
+            "message" => "it doenst' have a thumbnailUrl",
+            "request" => $request->all()
         ]);
     }
-
     /**
      * Display the specified resource.
      *

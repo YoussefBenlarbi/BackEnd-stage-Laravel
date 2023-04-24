@@ -35,6 +35,7 @@ Route::post('reservations', [ReservationController::class, 'store']);
 //     return Auth::user();
 // })->middleware('auth');
 
+
 Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('reservations', ReservationController::class)->only(['store']);
     Route::apiResource('users', UserController::class)->only(['index']);
