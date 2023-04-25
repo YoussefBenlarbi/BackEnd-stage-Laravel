@@ -36,6 +36,10 @@ Route::post('reservations', [ReservationController::class, 'store']);
 // })->middleware('auth');
 
 
+Route::get('/images/{image}', function ($image) {
+    return response()->file(public_path('storage/images/' . $image));
+});
+
 Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('reservations', ReservationController::class)->only(['store']);
     Route::apiResource('users', UserController::class)->only(['index']);

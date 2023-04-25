@@ -157,8 +157,18 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Log::info('Request data:', $request->all());
         $car = Car::FindOrFail($id);
         $status = isset($request->status) ? $request->status : $car->status;
+        if ($request->hasFile('thumbnailUrl')) {
+            // Log that a file with key 'thumbnailUrl' is present in the request
+            Log::info('File with key \'thumbnailUrl\' is present in the request');
+            $image = $request->file('thumbnailUrl');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+            $newThumbnailUrl = $imagePath;
+        }
+        $thumbnailUrl = $request->hasFile('thumbnailUrl') ? $newThumbnailUrl : $car->thumbnailUrl;
         $car->update([
             'name' => $request->name,
             'mileage' => $request->mileage,
@@ -168,7 +178,7 @@ class CarController extends Controller
             'status' => $status,
             'dailyPrice' => $request->dailyPrice,
             'monthlyPrice' => $request->monthlyPrice,
-            "thumbnailUrl" => $request->thumbnailUrl,
+            "thumbnailUrl" => $thumbnailUrl,
         ]);
         return response()->json([
             "status" => "Car updated successfully!",
