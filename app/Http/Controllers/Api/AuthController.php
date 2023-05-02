@@ -71,12 +71,15 @@ class AuthController extends Controller
         $user = Auth::user();
         // recuperer token by email and password
         // $token = Auth::attempt($request->only('email', ' password '));
+        $userDetail = $user->detail;
         return response()->json([
             "status" => 'success',
             "user" => $user,
+            // "data" => [$user,$userDetail],
             "authorization" => [
                 "token" => Auth::tokenById($user->id),
                 "type" => "Bearer",
+
             ]
 
         ]);

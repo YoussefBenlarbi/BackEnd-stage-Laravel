@@ -29,9 +29,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(UserDetail::class);
     }
-    public function transactions()
+    public function reservations()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Reservation::class);
     }
     /**
      * The attributes that should be hidden for serialization.
