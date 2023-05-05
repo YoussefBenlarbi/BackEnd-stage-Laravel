@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CarController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ReservationController;
 
@@ -31,6 +32,7 @@ Route::get('carsInfo', [CarController::class, 'carsInfo']);
 Route::patch('activate/{id}', [UserController::class, 'activate']);
 Route::patch('desactivate/{id}', [UserController::class, 'desactivate']);
 Route::post('reservations', [ReservationController::class, 'store']);
+Route::post('messages', [MessageController::class, 'store']);
 Route::get('datesCar/{id}', [ReservationController::class, 'datesCar']);
 // Route::post('me', function () {
 //     return Auth::user();
@@ -51,4 +53,5 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('cars', CarController::class);
     Route::apiResource('reservations', ReservationController::class)->except(['store']);
+    Route::apiResource('messages', MessageController::class)->except(['store']);
 });
