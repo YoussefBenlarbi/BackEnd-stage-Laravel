@@ -184,6 +184,10 @@ class ReservationController extends Controller
             }
         }
         sort($booked_dates);
-        return response()->json($booked_dates);
+        return response()->json([
+            "status" => "Success",
+            "dates" =>$booked_dates,
+            
+        ]);
     }
 }
