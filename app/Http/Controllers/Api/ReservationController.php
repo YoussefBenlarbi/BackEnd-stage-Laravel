@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class ReservationController extends Controller
 {
@@ -167,5 +169,21 @@ class ReservationController extends Controller
             "status" => "Working Fine",
             "message" => "reservation having the id : $reservation->id was deleted successfully!",
         ]);
+    }
+    function datesCar($car_id)
+    {
+        $reservations = Reservation::where('car_id', $car_id)->get();
+        $booked_dates = [];
+
+        foreach ($reservations as $reservation) {
+            $date_start = new Carbon($reservation->date_start);
+            $date_end = new Carbon($reservation->date_end);
+
+            for ($date = $date_start; $date->lte($date_end); $date->addDay()) {
+                $booked_dates[] = $date->toDateString();
+            }
+        }
+        sort($booked_dates);
+        return response()->json($booked_dates);
     }
 }
