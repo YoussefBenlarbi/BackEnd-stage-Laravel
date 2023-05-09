@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Models\UserDetail;
@@ -22,6 +23,7 @@ class ReservationController extends Controller
     {
         // $cars = Reservation::all();
         $users = User::with('detail')->get();
+        $cars = Car::all();
         // $usersDetail = $users->detail;
         $dataChart = Reservation::selectRaw("MONTHNAME(date_reservation) as name,
         SUM(CASE WHEN total > 0 THEN total ELSE 0 END) as Income")
@@ -41,7 +43,8 @@ class ReservationController extends Controller
             "reservations" => $reservations,
             "arraySexe" => $arraySexe,
             'dataChart' => $dataChart,
-            "users" => $users
+            "users" => $users,
+            "cars" => $cars,
         ]);
     }
 
@@ -187,7 +190,7 @@ class ReservationController extends Controller
         return response()->json([
             "status" => "Success",
             "dates" =>$booked_dates,
-            
+
         ]);
     }
 }
