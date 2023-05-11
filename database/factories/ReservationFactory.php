@@ -18,8 +18,8 @@ class ReservationFactory extends Factory
      */
     public function definition(): array
 {
-    $date_start = fake()->dateTimeBetween('now', '+1 year');
-    $date_end = fake()->dateTimeBetween($date_start, $date_start->format('Y-m-d H:i:s') . ' +1 year');
+    $date_start = fake()->dateTimeBetween('now', '+1 month');
+    $date_end = fake()->dateTimeBetween('first day of January this year', 'last day of December this year');
     $date_reservation = fake()->dateTimeBetween('first day of January this year', 'last day of December this year');
     return [
         'date_start' => $date_start->format('Y-m-d'),
